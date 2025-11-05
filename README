@@ -1,1 +1,53 @@
 For Web Development - PUP-SPC 3-1
+
+Installation Steps
+Clone or download the repository
+
+git clone <repository-url>
+
+Or download and extract the ZIP file.
+
+
+Move to your web server directory
+
+XAMPP: C:\xampp\htdocs\web-app (Windows) or /opt/lampp/htdocs/web-app (Linux)
+WAMP: C:\wamp64\www\web-app
+MAMP: /Applications/MAMP/htdocs/web-app
+Other: Your web server's document root
+Configure database connection
+
+Edit classes/Database.php and update these values to match your setup:
+
+private $host = 'localhost';        // Your MySQL host
+private $dbname = 'webdemo';        // Your database name
+private $username = 'root';         // Your MySQL username
+private $password = '';             // Your MySQL password (empty for XAMPP default)
+Create the database
+
+Open phpMyAdmin or MySQL command line and create a new database:
+
+CREATE DATABASE vivace_db;
+Import the database schema located in C:\XAMPP\htdocs\Vivace\dumpsqlfile\VIVACE4.sql
+
+Option A - Using phpMyAdmin:
+
+Open phpMyAdmin (usually at http://localhost/phpmyadmin)
+Select the webdemo database
+Click "Import" tab
+Choose file: dumpsqlfile\VIVACE4.sql
+Click "Go"
+Option B - Using MySQL command line:
+
+mysql -u root -p webdemo < dumpsqlfile\VIVACE4.sql
+Access the application
+
+Open your browser and navigate to:
+
+Homepage: http://localhost/web-app/index.php
+Products: http://localhost/web-app/products.php
+Login: http://localhost/web-app/login.php
+(Adjust the URL based on where you placed the project)
+
+Create your account
+
+Click "Sign Up" and create your own user account to start using the application.
