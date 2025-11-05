@@ -1,119 +1,153 @@
 <?php
-    include "misc/database.php";
+if (session_status() === PHP_SESSION_NONE) {
+session_start();
+}
+include "misc/database.php";
+include "misc/cart_handler.php";
 ?>
 
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>E-Shop - Bootstrap</title>
-
-    <!-- Bootstrap -->
-    <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.min.css">
-
-    <!-- Your custom styles -->
-    <link rel="stylesheet" href="styles.css">
-
-    <!-- jQuery & Validation (local) -->
-    <script src="node_modules/jquery/dist/jquery.min.js"></script>
-    <script src="node_modules/jquery-validation/dist/jquery.validate.min.js"></script>
-
-    <!-- Your custom modal script -->
-    <script src="modals.js"></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Home - Vivace</title>
+  <link href="./styles.css" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="node_modules/bootstrap/dist/js/bootstrap.bundle.min.js">
+  <!-- Your custom styles -->
+  <link rel="stylesheet" href="styles.css">
 </head>
-
 <body>
-    <!-- NAVBAR -->
-     <?php
-            include "misc/navbarheadfoot.php";
 
-            navbar();
-        ?>
-    <!-- <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-        <div class="container">
-            <a class="navbar-brand" href="index.php">
-                <img src="img/artic.png" alt="Logo" width="30" class="d-inline-block align-text-top" id="logoimg">
-                Arctic
-            </a>
-            <button class="navbar-toggler" type="button">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-                <form class="d-flex" action="search.php" method="GET">
-                    <input class="form-control me-2" type="search" name="search_query" placeholder="Search products..." aria-label="Search">
-                    <button class="btn btn-outline-light" type="submit">Search</button>
-                </form>
-            <div class="collapse navbar-collapse">
-                <ul class="navbar-nav ms-auto">
-                    <li class="nav-item"><a class="nav-link active" href="index.php">Home</a></li>
-                    <li class="nav-item"><a class="nav-link" href="products.php">Products</a></li>
-                    <li class="nav-item"><a class="nav-link" href="about.php">About</a></li>
-                    <li class="nav-item"><a class="nav-link" href="contact.php">Contact</a></li>
-                    <li class="nav-item"><a class="nav-link" href="cart.php">🛒 Cart</a></li>
-                    <li><button id="loginBtn" class="btn btn-outline-light">Login</button></li>
-                </ul>
-            </div>
-        </div>
-    </nav> -->
-
-    <!-- HERO -->
-    <header class="text-center text-white py-5 bg-dark"
-        style="background:url('img/banner.png') center/cover no-repeat; height: 350px; filter: brightness(0.7);">
-        <div class="container">
-            <h1 class="display-4" id="hero-title">Arctic Wind Solutions</h1>
-            <p class="lead" id="hero-subtitle">Experience the Arctic Difference Where Cool Meets Comfort.</p>
-        </div>
-    </header>
-
-    <!-- PRODUCTS -->
-    <section class="py-5">
-        <?php
-            include "misc/rand_products.php";
-
-            featuredPage();
-        ?>
-    </section>
-
-    <!-- LOGIN MODAL -->
-    <div id="loginModal" class="modal-overlay">
-    <div class="modal-box">
-        <h2>Login</h2>
-        <form id="loginForm">
-        <input type="email" name="email" placeholder="Email" required>
-        <input type="password" name="password" placeholder="Password" required>
-        <button type="submit">Login</button>
-        </form>
-        <p>No account yet? <a href="#" id="openSignup">Sign up here</a></p>
-    </div>
-    </div>
-
-    <!-- SIGNUP MODAL -->
-    <div id="signupModal" class="modal-overlay">
-    <div class="modal-box">
-        <h2>Sign Up</h2>
-        <form id="signupForm">
-        <input type="text" id="username" name="username" placeholder="Username" required>
-        <input type="password" id="password" name="password" placeholder="Password" required>
-        <input type="password" id="retypePassword" name="retypePassword" placeholder="Retype Password" required>
-        <button type="submit">Create Account</button>
-        </form>
-        <p><a href="#" id="backToLogin">Back to Login</a></p>
-    </div>
-    </div>
-
-    <!-- FOOTER -->
+  <!-- NAVBAR -->
     <?php
-        footer();
-    ?>
-    <!-- <footer class="footer bg-dark text-white text-center py-3">
-        <p class="mb-0">© 2025 E-Shop | Designed for demo purposes</p>
-    </footer> -->
+      include "misc/readypage.php";
+
+      navbar();
+      ?>
+
+  <!-- HERO -->
+  <header class="text-center text-white py-5 bg-dark" style="background:url(img/assets/bannernotext.png) center/cover no-repeat;">
+    <div class="container">
+      <h1 class="display-4" id="display-home">VIVACE</h1>
+      <p class="lead">Discover premium instruments for your business and hobbies</p>
+      <a href="products.php" class="btn btn-primary btn-lg mt-3">
+        <i class="fas fa-shopping-bag"></i> Shop Now
+      </a>
+    </div>
+  </header>
+
+  <!-- FEATURED PRODUCTS -->
+  <section class="py-5">
+    <div class="container">
+      <div class="row g-4" id="featured-products">
+        <!-- Products will be loaded here -->
+        <?php 
+          include "misc/cards_handler.php";
+          featuredProducts();
+        ?>
+      </div>
+    </div>
+  </section>
+
+  <!-- FEATURES -->
+  <section class="py-5 bg-dark">
+    <div class="container">
+      <div class="row g-4">
+        <div class="col-md-4 text-center">
+          <div class="card h-100 border-0">
+            <div class="card-body">
+              <i class="fas fa-shipping-fast fa-3x text-primary mb-3"></i>
+              <h5 class="card-title">Free Shipping</h5>
+              <p class="card-text">Free shipping on orders over $50</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4 text-center">
+          <div class="card h-100 border-0">
+            <div class="card-body">
+              <i class="fas fa-undo fa-3x text-primary mb-3"></i>
+              <h5 class="card-title">Easy Returns</h5>
+              <p class="card-text">30-day return policy</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4 text-center">
+          <div class="card h-100 border-0">
+            <div class="card-body">
+              <i class="fas fa-headset fa-3x text-primary mb-3"></i>
+              <h5 class="card-title">24/7 Support</h5>
+              <p class="card-text">Customer support anytime</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4 text-center">
+          <div class="card h-100 border-0">
+            <div class="card-body">
+              <i class="fas fa-guitar fa-3x text-primary mb-3"></i>
+              <h5 class="card-title">Quality Instruments</h5>
+              <p class="card-text">Highest Quality of Instruments and Tools</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER AND MODALS -->
+   <?php
+
+      footer();
+      modals();
+      ?>
+  <!-- Login Modal -->
+  <!-- <div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="loginModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="loginModalLabel">Login</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form id="loginForm" novalidate>
+            <div class="mb-3">
+              <label for="loginEmail" class="form-label">Email</label>
+              <input type="email" class="form-control" id="loginEmail" name="loginEmail" required>
+              <div class="invalid-feedback"></div>
+            </div>
+            <div class="mb-3">
+              <label for="loginPassword" class="form-label">Password</label>
+              <div class="input-group">
+                <input type="password" class="form-control" id="loginPassword" name="loginPassword" required>
+                <button class="btn btn-outline-secondary" type="button" id="toggleLoginPassword">
+                  <i class="fas fa-eye" id="loginPasswordIcon"></i>
+                </button>
+              </div>
+              <div class="invalid-feedback"></div>
+            </div>
+            <div class="d-grid">
+              <button type="submit" class="btn btn-primary">
+                <i class="fas fa-sign-in-alt"></i> Login
+              </button>
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <p class="mb-0">No account yet? <a href="signup.php" class="text-primary" data-bs-dismiss="modal">Sign up here</a></p>
+        </div>
+      </div>
+    </div>
+  </div> -->
+  <!-- jQuery & Validation (local) -->
+  <script src="node_modules/jquery/dist/jquery.min.js"></script>
+  <script src="node_modules/jquery-validation/dist/jquery.validate.min.js"></script>
+
+  <!-- Your custom modal script -->
+  <script src="./js/modals.js?v=2"></script>
+  <script src="./js/cart.js"></script>
+  <script src="./js/loginsign.js"></script>
 
 </body>
-
 </html>
-
-<?php
-    mysqli_close($conn);
-?>

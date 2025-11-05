@@ -1,4 +1,7 @@
 <?php
+if (session_status() === PHP_SESSION_NONE) {
+session_start();
+}
 include "misc/database.php";
 include "misc/prod_page.php";
 
@@ -9,6 +12,7 @@ include "misc/prod_page.php";
 // $sql = "SELECT id, prod_name, price, stock, info FROM products WHERE id = $id LIMIT 1";
 // $result = mysqli_query($conn, $sql);
 // $product = mysqli_fetch_assoc($result);
+
 ?>
 
 <!DOCTYPE html>
@@ -17,19 +21,13 @@ include "misc/prod_page.php";
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>E-Shop</title>
-    <!-- Bootstrap -->
+    <title>Product Details - Vivace</title>
+    <link href="./styles.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.min.css">
-
+    <link rel="stylesheet" href="node_modules/bootstrap/dist/js/bootstrap.bundle.min.js">
     <!-- Your custom styles -->
     <link rel="stylesheet" href="styles.css">
-
-    <!-- jQuery & Validation (local) -->
-    <script src="node_modules/jquery/dist/jquery.min.js"></script>
-    <script src="node_modules/jquery-validation/dist/jquery.validate.min.js"></script>
-
-    <!-- Your custom modal script -->
-    <script src="modals.js"></script>
     <style>
         .product-img-main {
             width: 100%;
@@ -48,7 +46,12 @@ include "misc/prod_page.php";
 <body>
 
     <!-- NAVBAR -->
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <?php
+        include "misc/readypage.php";
+
+        navbar();
+        ?>
+    <!-- <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <div class="container">
             <a class="navbar-brand" href="index.php">
                 <img src="img/artic.png" alt="Logo" width="30" class="d-inline-block align-text-top" id="logoimg">
@@ -56,9 +59,9 @@ include "misc/prod_page.php";
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                 <span class="navbar-toggler-icon"></span>
-            </button>
+            </button> -->
             <!-- Search Form -->
-            <form class="d-flex" action="search.php" method="GET">
+            <!-- <form class="d-flex" action="search.php" method="GET">
                 <input class="form-control me-2" type="search" name="search_query" placeholder="Search products..." aria-label="Search">
                 <button class="btn btn-outline-light" type="submit">Search</button>
             </form>
@@ -73,7 +76,7 @@ include "misc/prod_page.php";
                 </ul>
             </div>
         </div>
-    </nav>
+    </nav> -->
 
     <!-- PRODUCT DETAIL -->
     <div class="container my-5">
@@ -82,7 +85,7 @@ include "misc/prod_page.php";
         ?>
     </div>
     <!-- LOGIN MODAL -->
-    <div id="loginModal" class="modal-overlay">
+    <!-- <div id="loginModal" class="modal-overlay">
         <div class="modal-box">
             <h2>Login</h2>
             <form id="loginForm">
@@ -92,10 +95,10 @@ include "misc/prod_page.php";
             </form>
             <p>No account yet? <a href="#" id="openSignup">Sign up here</a></p>
         </div>
-    </div>
+    </div> -->
 
     <!-- SIGNUP MODAL -->
-    <div id="signupModal" class="modal-overlay">
+    <!-- <div id="signupModal" class="modal-overlay">
         <div class="modal-box">
             <h2>Sign Up</h2>
             <form id="signupForm">
@@ -106,12 +109,23 @@ include "misc/prod_page.php";
             </form>
             <p><a href="#" id="backToLogin">Back to Login</a></p>
         </div>
-    </div>
+    </div> -->
 
-    <!-- FOOTER -->
-    <footer class="footer bg-dark text-white text-center py-3">
+    <!-- FOOTER AND MODALS -->
+        <?php
+
+        footer();
+        modals();
+        ?>
+    <!-- <footer class="footer bg-dark text-white text-center py-3">
         <p class="mb-0">© 2025 E-Shop | Designed for demo purposes</p>
-    </footer>
+    </footer> -->
+    <script src="node_modules/jquery/dist/jquery.min.js"></script>
+    <script src="node_modules/jquery-validation/dist/jquery.validate.min.js"></script>
+
+    <!-- Your custom modal script -->
+  <script src="./js/modals.js"></script>
+  <script src="./js/loginsign.js"></script>
 
 </body>
 </html>

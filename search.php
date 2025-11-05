@@ -1,11 +1,11 @@
 <?php
 include "misc/database.php";
 
-$search = isset($_GET['q']) ? mysqli_real_escape_string($conn, $_GET['q']) : '';
+$search = isset($_GET['search_query']) ? mysqli_real_escape_string($conn, $_GET['search_query']) : '';
 
-$sql = "SELECT id, prod_name, price, stock, info 
-            FROM products 
-            WHERE prod_name LIKE '%$search%' 
+$sql = "SELECT id, prod_name, price, stock, info
+            FROM products
+            WHERE prod_name LIKE '%$search%'
             OR info LIKE '%$search%'";
 $result = mysqli_query($conn, $sql);
 ?>
@@ -17,18 +17,11 @@ $result = mysqli_query($conn, $sql);
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Search Results - E-Shop</title>
-    <!-- Bootstrap -->
+    <link href="./styles.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.min.css">
-
     <!-- Your custom styles -->
     <link rel="stylesheet" href="styles.css">
-
-    <!-- jQuery & Validation (local) -->
-    <script src="node_modules/jquery/dist/jquery.min.js"></script>
-    <script src="node_modules/jquery-validation/dist/jquery.validate.min.js"></script>
-
-    <!-- Your custom modal script -->
-    <script src="modals.js"></script>
     <style>
         .product-img {
             height: 200px;
@@ -40,7 +33,12 @@ $result = mysqli_query($conn, $sql);
 <body>
 
     <!-- NAVBAR -->
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <?php
+            include "misc/readypage.php";
+
+            navbar();
+        ?>
+    <!-- <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <div class="container">
             <a class="navbar-brand" href="index.php">
                 <img src="img/artic.png" alt="Logo" width="30" class="d-inline-block align-text-top" id="logoimg">
@@ -49,7 +47,7 @@ $result = mysqli_query($conn, $sql);
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                 <span class="navbar-toggler-icon"></span>
             </button>
-            <!-- Search Form -->
+
                 <form class="d-flex" action="search.php" method="GET">
                     <input class="form-control me-2" type="search" name="search_query" placeholder="Search products..." aria-label="Search">
                     <button class="btn btn-outline-light" type="submit">Search</button>
@@ -67,7 +65,8 @@ $result = mysqli_query($conn, $sql);
 
             </div>
         </div>
-    </nav>
+    </nav> -->
+
 
     <!-- SEARCH RESULTS -->
     <div class="container my-5">
@@ -82,12 +81,16 @@ $result = mysqli_query($conn, $sql);
                 {
                     search();
                 }
+                else 
+                {
+                    echo "<div class='alert alert-warning text-center'>Please enter a search term.</div>";
+                }
             ?> 
         </div>
     </div>
 
     <!-- LOGIN MODAL -->
-    <div id="loginModal" class="modal-overlay">
+    <!-- <div id="loginModal" class="modal-overlay">
     <div class="modal-box">
         <h2>Login</h2>
         <form id="loginForm">
@@ -97,10 +100,10 @@ $result = mysqli_query($conn, $sql);
         </form>
         <p>No account yet? <a href="#" id="openSignup">Sign up here</a></p>
     </div>
-    </div>
+    </div> -->
 
     <!-- SIGNUP MODAL -->
-    <div id="signupModal" class="modal-overlay">
+    <!-- <div id="signupModal" class="modal-overlay">
     <div class="modal-box">
         <h2>Sign Up</h2>
         <form id="signupForm">
@@ -111,15 +114,26 @@ $result = mysqli_query($conn, $sql);
         </form>
         <p><a href="#" id="backToLogin">Back to Login</a></p>
     </div>
-    </div>
+    </div> -->
 
 
     <!-- FOOTER -->
-    <footer class="footer fixed-bottom bg-dark text-white text-center py-3">
+    <!-- <footer class="footer fixed-bottom bg-dark text-white text-center py-3">
         <p class="mb-0">© 2025 E-Shop | Designed for demo purposes</p>
-    </footer>
+    </footer> -->
 
-    <script src="bootstrap.bundle.min.js"></script>
+    <?php
+
+      footer();
+      modals();
+      ?>
+
+    <!-- jQuery & Validation (local) -->
+  <script src="node_modules/jquery/dist/jquery.min.js"></script>
+  <script src="node_modules/jquery-validation/dist/jquery.validate.min.js"></script>
+
+  <!-- Your custom modal script -->
+  <script src="./js/modals.js"></script>
 </body>
 
 </html>

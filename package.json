@@ -1,19 +1,25 @@
 {
-  "name": "webapp",
+  "name": "vivace",
   "version": "1.0.0",
-  "description": "",
+  "description": "Project for WebDev BSIT 3-1",
   "main": "index.js",
   "scripts": {
-    "build:css": "postcss styles.css -o dist/styles.css",
-    "watch:css": "postcss styles.css -o dist/styles.css --watch"
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ReizuP/Vivace.git"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/ReizuP/Vivace/issues"
+  },
+  "homepage": "https://github.com/ReizuP/Vivace#readme",
   "dependencies": {
     "bootstrap": "^5.3.8",
-    "bulma": "^1.0.4",
     "jquery": "^3.7.1",
     "jquery-validation": "^1.21.0"
   },
@@ -22,5 +28,9 @@
     "postcss": "^8.5.6",
     "postcss-cli": "^11.0.1",
     "postcss-import": "^16.1.1"
+  },
+  "scripts": {
+    "build:css": "postcss styles.css -o dist/styles.css --map",
+    "watch:css": "postcss styles.css -o dist/styles.css --watch"
   }
 }
